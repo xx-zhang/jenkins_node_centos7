@@ -1,4 +1,7 @@
-FROM centos:centos7.9.2009
+# syntax=docker/dockerfile:1
+FROM --platform=$TARGETPLATFORM centos:centos7.9.2009
+
+ARG TARGETARCH
 
 MAINTAINER actanble <actanble@gmail.com>
 USER root
@@ -7,9 +10,11 @@ USER root
 ENV LANG en_US.UTF-8
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo && \
-    sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo && \
-    curl -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+
+ADD . /nfs_client
+RUN sed -i 's/\r//' /nfs_client/${TARGETARCH}/01_${TARGETARCH}_inital_rpm_source.sh && \
+    /bin/bash /nfs_client/${TARGETARCH}/01_${TARGETARCH}_inital_rpm_source.sh
+
 RUN yum makecache && yum -y install fontconfig freetype which wget curl git make subversion
 # docker
 # RUN sed -i 's/TMOUT=300/TMOUT=0/g' /etc/bashrc
