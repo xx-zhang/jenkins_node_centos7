@@ -29,10 +29,10 @@ RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.r
 
 # TODO Install Perl Commad
 # Ref https://mirror.tuna.tsinghua.edu.cn/help/CPAN/
-RUN  yum install -y perl-CPAN && \
-     PERL_MM_USE_DEFAULT=1 \
-     perl -MCPAN -e 'CPAN::HandleConfig->edit("pushy_https", 0); CPAN::HandleConfig->edit("urllist", "unshift", "https://mirrors.aliyun.com/CPAN/"); mkmyconfig' || echo 'IGNORE CPAN CONFIG ERROR' && \
-     cpan install IPC/Cmd.pm
+#RUN  yum install -y perl-CPAN && \
+#     PERL_MM_USE_DEFAULT=1 \
+#     perl -MCPAN -e 'CPAN::HandleConfig->edit("pushy_https", 0); CPAN::HandleConfig->edit("urllist", "unshift", "https://mirrors.aliyun.com/CPAN/"); mkmyconfig' || echo 'IGNORE CPAN CONFIG ERROR' && \
+#     cpan install IPC/Cmd.pm
 
 WORKDIR /root/
 
