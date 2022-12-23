@@ -1,4 +1,6 @@
 #!//bin/bash
+releasever=7
+basearch=x86_64
 
 echo "Writing Centos Base Repo..."
 cat > /etc/yum.repos.d/Centos7-Base.repo <<- EOF
